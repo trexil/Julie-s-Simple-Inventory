@@ -11,10 +11,10 @@ QUERIMIT, Trexil
 
 1. Install Python3 Tkinter Package:
 
-$ sudo apt-get install python3-tk
+    $ sudo apt-get install python3-tk
 
 2. Clone the repository
 
 3. Run the app:
 
-$ python3 main.py
+    $ python3 main.py
