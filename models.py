@@ -15,8 +15,16 @@ class Inventory_Product(BaseModel):
     name = CharField()
     description = CharField()
     price = IntegerField(default=0)
+    
+class Inventory_InvoiceItem(BaseModel):
+    invoice = ForeignKeyField(Inventory_Invoice,backref='invoice_invoiceitems')
+    product = ForeignKeyField(Inventory_Product,backref='product_invoiceitems')
+    quantity = IntegerField()
 
-
+def create_tables_if_not_exist():
+    if not Inventory_Product.table_exists():
+        db.create_tables([Inventory_Invoice, Inventory_Product, Inventory_InvoiceItem])
+            
 """
 Usage:
 ======
@@ -39,3 +47,11 @@ create
 ------
 cur_inv = Invoice.create(customer=inv[0],date=inv[1],amount=inv[2])
 InvoiceItem.insert(invoice=cur_inv,product=i[0],quantity=i[1]).execute()
+
+sample_products
+---------------
+f = open('product_sample.csv')
+for i in range(10):
+    row = f.readline().rstrip().split(',')
+    Product.create(name=row[0],description=row[1],price=row[2])
+"""
